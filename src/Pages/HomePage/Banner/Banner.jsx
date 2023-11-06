@@ -1,12 +1,17 @@
 import { Link } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import { motion } from "framer-motion";
 
 const Banner = () => {
   const { user } = useAuth();
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0, y: -50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 2 }}
+    >
       <div
-        className="hero max-h-screen"
+        className="hero max-h-screen mb-10"
         style={{
           backgroundImage:
             "url(https://i.ibb.co/hy8nt88/travel-concept-with-landmarks.jpg)",
@@ -29,7 +34,7 @@ const Banner = () => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

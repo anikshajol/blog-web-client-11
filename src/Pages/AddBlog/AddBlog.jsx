@@ -1,16 +1,36 @@
+import moment from "moment/moment";
+import useAuth from "../../hooks/useAuth";
+
 const AddBlog = () => {
+  const { user } = useAuth();
   const handleAddBlogPost = (e) => {
     e.preventDefault();
-    console.log();
+    const form = e.target;
+    const email = form.email.value;
+    const date = moment().format("MMMM Do YYYY, h:mm:ss a");
+    const photo = user.photoURL;
+    console.log(photo, email, date);
   };
 
   return (
     <div className="max-w-7xl mx-auto">
       <form onSubmit={handleAddBlogPost}>
         {/* layer 1 */}
+        {/* user email */}
+        <label className="input-group input-group-vertical ">
+          <span className="">Your Email</span>
+          <input
+            type="email"
+            name="email"
+            placeholder="Input Short Description"
+            defaultValue={user?.email}
+            className=" input input-bordered"
+            disabled
+          />
+        </label>
         <div className="flex flex-col md:flex-row my-5 justify-around gap-10">
           {/* add title */}
-          <div className="w-full">
+          <div className="w-1/2">
             <label className="input-group input-group-vertical">
               <span>Add Title</span>
               <input
@@ -23,7 +43,7 @@ const AddBlog = () => {
           </div>
 
           {/* input image url */}
-          <div className="w-full">
+          <div className="w-1/2">
             <label className="input-group input-group-vertical">
               <span>Add PhotoURL</span>
               <input
@@ -37,7 +57,7 @@ const AddBlog = () => {
         </div>
 
         {/* layer 2 */}
-        <div className="flex justify-around gap-10 ">
+        <div className="flex flex-col md:flex-row gap-10 ">
           {/* add short Description */}
           <div className="w-1/2">
             <label className="input-group input-group-vertical">
@@ -65,8 +85,9 @@ const AddBlog = () => {
           </div>
         </div>
 
-        {/* category */}
+        {/* layer 3 */}
         <div className="py-5">
+          {/* category */}
           <div className="input-group">
             <select className="select select-bordered">
               <option disabled selected>

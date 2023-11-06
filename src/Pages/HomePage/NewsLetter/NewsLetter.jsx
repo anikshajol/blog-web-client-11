@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
 import Lottie from "react-lottie";
-import animationData from "../../../../public/Animation - 1699298932014.json";
+import animationData from "../../../lottie/Animation - 1699298932014.json";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 const NewsLetter = () => {
   const [email, setEmail] = useState("");
@@ -24,9 +25,14 @@ const NewsLetter = () => {
           <Lottie options={defaultOptions} height={400} width={400} />
         </div>
         <div className="card w-1/2 p-4">
-          <h1 className="text-5xl font-bold mb-4">
+          <motion.h1
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 2 }}
+            className="text-5xl font-bold mb-4"
+          >
             Subscribe To Our Newsletter
-          </h1>
+          </motion.h1>
 
           <div className="">
             <div className="input-group">
