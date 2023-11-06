@@ -14,6 +14,7 @@ import Register from "./Authentication/Register.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 const routes = createBrowserRouter([
   {
@@ -62,11 +63,15 @@ const routes = createBrowserRouter([
   },
 ]);
 
+const queryClient = new QueryClient();
+
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-    <AuthProvider>
-      <RouterProvider router={routes}></RouterProvider>
-      <Toaster />
-    </AuthProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthProvider>
+        <RouterProvider router={routes}></RouterProvider>
+        <Toaster />
+      </AuthProvider>
+    </QueryClientProvider>
   </React.StrictMode>
 );
