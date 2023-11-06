@@ -35,14 +35,16 @@ const NewsLetter = () => {
                 placeholder="xxx@xxx.com"
                 className="input input-bordered"
                 name="email"
+                value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <input
+              <button
                 onClick={handleSubscribe}
                 className="btn w-1/4 btn-primary btn-square"
                 type="btn"
-                value={"Subscribe"}
-              />
+              >
+                Subscribe
+              </button>
             </div>
           </div>
         </div>
