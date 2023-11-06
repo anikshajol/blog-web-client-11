@@ -1,12 +1,12 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import "./Navbar.css";
 import { useContext } from "react";
 import { AuthContext } from "../../../AuthProvider/AuthProvider";
 
 const Nav = () => {
-  const { user } = useContext(AuthContext);
-
+  const { user, logOut } = useContext(AuthContext);
+  const navigate = useNavigate();
   const navLinks = (
     <>
       <li>
@@ -24,14 +24,18 @@ const Nav = () => {
       <li>
         <NavLink to={"/wishlist"}> Wishlist</NavLink>
       </li>
-      <li>
-        <NavLink to={"/register"}> Register</NavLink>
-      </li>
-      <li>
-        <NavLink to={"/login"}> Login </NavLink>
-      </li>
     </>
   );
+
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        navigate("/login");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   return (
     <div>
@@ -67,23 +71,29 @@ const Nav = () => {
           <ul className="menu menu-horizontal px-2 text-lg">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          {/* {user && <Link className="user-name">{user.displayName}</Link>} */}
+          {user && <Link className="user-name">{user.displayName}</Link>}
 
-          {/* <div className="avatar mx-2">
+          <div className="avatar mx-2">
             <div className="w-10 rounded-full">
-              <img src={user?.photoURL ? user?.photoURL : ""} />
+              {/* <img src={user?.photoURL ? user?.photoURL : ""} /> */}
+              {user && <img src={user?.photoURL} />}
             </div>
-          </div> */}
+          </div>
 
-          {/* {!user ? (
-            <Link to={"/login"} className="nav-btn">
-              Login
-            </Link>
+          {!user ? (
+            <div className="text-lg">
+              <Link to={"/login"} className="nav-btn">
+                Login
+              </Link>
+              <Link to={"/register"} className="nav-btn ml-4">
+                Register
+              </Link>
+            </div>
           ) : (
             <Link onClick={handleLogOut} className="nav-btn">
               Logout
             </Link>
-          )} */}
+          )}
         </div>
       </div>
     </div>

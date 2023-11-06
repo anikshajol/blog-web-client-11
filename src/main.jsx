@@ -13,6 +13,7 @@ import Login from "./Authentication/Login.jsx";
 import Register from "./Authentication/Register.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
+import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -26,11 +27,20 @@ const routes = createBrowserRouter([
       },
       {
         path: "/add-blog",
-        element: <AddBlog></AddBlog>,
+        element: (
+          <PrivateRoute>
+            {" "}
+            <AddBlog></AddBlog>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/all-blog",
-        element: <AllBlogs></AllBlogs>,
+        element: (
+          <PrivateRoute>
+            <AllBlogs></AllBlogs>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/featured-blog",
