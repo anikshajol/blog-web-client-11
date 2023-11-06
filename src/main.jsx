@@ -12,6 +12,7 @@ import Wishlist from "./Pages/Wishlist/Wishlist.jsx";
 import Login from "./Authentication/Login.jsx";
 import Register from "./Authentication/Register.jsx";
 import AuthProvider from "./AuthProvider/AuthProvider.jsx";
+import { Toaster } from "react-hot-toast";
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +56,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <AuthProvider>
       <RouterProvider router={routes}></RouterProvider>
+      <Toaster />
     </AuthProvider>
   </React.StrictMode>
 );
