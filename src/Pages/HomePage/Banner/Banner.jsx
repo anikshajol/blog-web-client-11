@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import { AuthContext } from "../../../AuthProvider/AuthProvider";
 import { Link } from "react-router-dom";
+import useAuth from "../../../hooks/useAuth";
 
 const Banner = () => {
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
   return (
     <div>
       <div

@@ -1,11 +1,12 @@
 import { FcGoogle } from "react-icons/fc";
 
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { updateProfile } from "firebase/auth";
 import toast from "react-hot-toast";
-import { AuthContext } from "../AuthProvider/AuthProvider";
+
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
   const [displayName, setDisplayName] = useState("");
@@ -13,10 +14,8 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [photo, setPhoto] = useState("");
   const [error, setError] = useState("");
-  const { signInWithGoogle } = useContext(AuthContext);
+  const { signInWithGoogle, createUser } = useAuth();
   const navigate = useNavigate();
-
-  const { createUser } = useContext(AuthContext);
 
   // console.log(email, displayName, password, photo);
 

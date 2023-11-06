@@ -2,7 +2,7 @@ import Skeleton from "react-loading-skeleton";
 
 const LoadingSkeleton = () => {
   return (
-    <div>
+    <div className="grid grid-cols-3">
       <h1>
         <Skeleton width={200} height={30} />
       </h1>

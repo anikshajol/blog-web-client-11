@@ -1,15 +1,8 @@
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-// import Spinner from "../../../Spinner/Spinner";
-// import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import LoadingSkeleton from "../../../Spinner/LoadingSkeleton";
 import RecentBlog from "./RecentBlog";
-
-{
-  /* <Skeleton /> // Simple, single-line loading skeleton
-<Skeleton count={5} /> // */
-}
 
 const RecentBlogs = () => {
   //   const [recentBlogs, setRecentBlogs] = useState([]);
