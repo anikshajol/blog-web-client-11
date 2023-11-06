@@ -23,10 +23,10 @@ const RecentBlogs = () => {
     },
   });
   if (isLoading) {
-    const skeletonArray = Array.from({ length: 6 });
+    const skeleton = Array.from({ length: 6 });
     return (
       <div className=" max-w-7xl mx-auto gap-4  grid grid-cols-3">
-        {skeletonArray.map((_, index) => (
+        {skeleton.map((_, index) => (
           <LoadingSkeleton key={index} />
         ))}
       </div>
