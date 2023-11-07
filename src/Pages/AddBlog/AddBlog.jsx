@@ -6,10 +6,28 @@ const AddBlog = () => {
   const handleAddBlogPost = (e) => {
     e.preventDefault();
     const form = e.target;
-    const email = form.email.value;
-    const date = moment().format("MMMM Do YYYY, h:mm:ss a");
-    const photo = user.photoURL;
-    console.log(photo, email, date);
+    const authorEmail = form.email.value;
+    const title = form.title.value || "No Data";
+    const image = form.photo.value || "No Data";
+    const short_description = form.shortDescription.value || "No Data";
+    const long_description = form.longDescription.value || "No Data";
+    const category = form.category.value || "No Data";
+
+    const time = moment().format("MMMM Do YYYY, h:mm");
+    const authorImage = user.photoURL;
+
+    const blog = {
+      title,
+      image,
+      short_description,
+      long_description,
+      category,
+      time,
+      authorEmail,
+      authorImage,
+    };
+
+    console.log(blog);
   };
 
   return (
@@ -89,14 +107,24 @@ const AddBlog = () => {
         <div className="py-5">
           {/* category */}
           <div className="input-group">
-            <select className="select select-bordered">
+            <select className="select select-bordered" name="category">
               <option disabled selected>
                 Pick category
               </option>
-              <option>T-shirts</option>
-              <option>Mugs</option>
+              <option defaultValue={"Beach Destinations"}>
+                Beach Destinations
+              </option>
+              <option defaultValue={"Mountain Expeditions"}>
+                Mountain Expeditions
+              </option>
+              <option defaultValue={"Cultural Experiences"}>
+                Cultural Experiences
+              </option>
+              <option defaultValue={"Wildlife Safari"}>Wildlife Safari</option>
+              <option defaultValue={"City Escapes"}>City Escapes</option>
+              <option defaultValue={"Road Trips"}>Road Trips</option>
             </select>
-            <button className="btn">Go</button>
+            {/* <button className="btn">Go</button> */}
           </div>
         </div>
 

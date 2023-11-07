@@ -8,6 +8,11 @@ const RecentBlog = ({ recentBlog }) => {
   const { title, image, short_description } = recentBlog;
 
   // const [loading,setLoading] = useState(false)
+
+  const handleAddToWishList = () => {
+    console.log("add to wishlist");
+  };
+
   return (
     <div>
       <div className="card card-compact w-96 bg-base-100 shadow-xl">
@@ -19,7 +24,12 @@ const RecentBlog = ({ recentBlog }) => {
           <p>{short_description}</p>
           <div className="card-actions justify-end">
             <button className="btn btn-primary rounded-xl">Details</button>
-            <button className="btn btn-primary rounded-xl">Wishlist</button>
+            <button
+              onClick={handleAddToWishList}
+              className="btn btn-primary rounded-xl"
+            >
+              Wishlist
+            </button>
           </div>
         </div>
       </div>
