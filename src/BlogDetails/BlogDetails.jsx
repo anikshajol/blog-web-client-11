@@ -2,9 +2,10 @@ import { useLoaderData } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
+import Comments from "./Comments";
 const BlogDetails = () => {
   const blog = useLoaderData();
-  //   const [commentData, setCommentData] = useState({});
+
   const { user } = useAuth();
   const { email, photoURL, displayName } = user;
   console.log(user);
@@ -69,6 +70,9 @@ const BlogDetails = () => {
         </div>
       </div>
 
+      <div>
+        <Comments></Comments>
+      </div>
       {/* comments area */}
       {email === authorEmail ? (
         <div className="flex mt-5 justify-center items-center">
