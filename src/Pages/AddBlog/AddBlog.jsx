@@ -1,7 +1,11 @@
 import moment from "moment/moment";
 import useAuth from "../../hooks/useAuth";
+// import useAxios from "../../hooks/useAxios";
+import toast from "react-hot-toast";
+import axios from "axios";
 
 const AddBlog = () => {
+  // const { axiosSecure } = useAxios();
   const { user } = useAuth();
   const handleAddBlogPost = (e) => {
     e.preventDefault();
@@ -15,7 +19,6 @@ const AddBlog = () => {
 
     const time = moment().format("MMMM Do YYYY, h:mm");
     const authorImage = user.photoURL;
-
     const blog = {
       title,
       image,
@@ -26,8 +29,13 @@ const AddBlog = () => {
       authorEmail,
       authorImage,
     };
-
     console.log(blog);
+    axios.post("http://localhost:5000/blogs", blog).then((res) => {
+      if (res.data.insertedID) {
+        toast.success("Data added Successfully");
+        console.log(res.data);
+      }
+    });
   };
 
   return (
@@ -107,22 +115,20 @@ const AddBlog = () => {
         <div className="py-5">
           {/* category */}
           <div className="input-group">
-            <select className="select select-bordered" name="category">
+            <select required className="select select-bordered" name="category">
               <option disabled selected>
                 Pick category
               </option>
-              <option defaultValue={"Beach Destinations"}>
-                Beach Destinations
-              </option>
-              <option defaultValue={"Mountain Expeditions"}>
+              <option value={"Beach Destinations"}>Beach Destinations</option>
+              <option value={"Mountain Expeditions"}>
                 Mountain Expeditions
               </option>
-              <option defaultValue={"Cultural Experiences"}>
+              <option value={"Cultural Experiences"}>
                 Cultural Experiences
               </option>
-              <option defaultValue={"Wildlife Safari"}>Wildlife Safari</option>
-              <option defaultValue={"City Escapes"}>City Escapes</option>
-              <option defaultValue={"Road Trips"}>Road Trips</option>
+              <option value={"Wildlife Safari"}>Wildlife Safari</option>
+              <option value={"City Escapes"}>City Escapes</option>
+              <option value={"Road Trips"}>Road Trips</option>
             </select>
             {/* <button className="btn">Go</button> */}
           </div>

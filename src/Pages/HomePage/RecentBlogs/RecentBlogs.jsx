@@ -19,7 +19,7 @@ const RecentBlogs = () => {
   const { loading } = useAuth();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/blogs").then((res) => {
+    axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
       setRecentBlogs(res.data);
     });
   }, []);
