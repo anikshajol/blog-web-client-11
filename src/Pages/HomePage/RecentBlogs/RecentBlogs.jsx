@@ -1,37 +1,51 @@
-// import { useQuery } from "@tanstack/react-query";
 import "react-loading-skeleton/dist/skeleton.css";
 import LoadingSkeleton from "../../../Spinner/LoadingSkeleton";
 import RecentBlog from "./RecentBlog";
 import { motion } from "framer-motion";
-// import useAxios from "../../../hooks/useAxios";
+
 import useAuth from "../../../hooks/useAuth";
-import { useEffect } from "react";
-import { useState } from "react";
+
+import { useQuery } from "@tanstack/react-query";
+
 import axios from "axios";
-// import { useQuery } from "@tanstack/react-query";
 // import axios from "axios";
 
 // import Skeleton from "react-loading-skeleton";
 
 const RecentBlogs = () => {
   // const axiosSecure = useAxios();
-  const [recentBlogs, setRecentBlogs] = useState([]);
+
+  // const [recentBlogs, setRecentBlogs] = useState([]);
   const { loading } = useAuth();
+  // console.log(loading);
 
-  useEffect(() => {
-    axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
-      setRecentBlogs(res.data);
-    });
-  }, []);
+  // useEffect(() => {
+  //   axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
+  //     setRecentBlogs(res.data);
+  //   });
+  // }, []);
 
-  // const { isLoading, data: recentBlogs } = useQuery({
-  //   queryKey: ["recentBlogs"],
-  //   queryFn: () => {
-  //     axios.get("http://localhost:5000/blogs").then((res) => {
-  //       return res.data;
-  //     });
-  //   },
-  // });
+  // useEffect(() => {
+  //   axiosSecure.get("/blogs/recent-post").then((res) => {
+  //     setRecentBlogs(res.data);
+  //   });
+  // }, [axiosSecure]);
+
+  const { data: blogsRecent } = useQuery({
+    queryKey: ["recentBlogs"],
+    queryFn: async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:5000/blogs/recent-post"
+        );
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
+    },
+  });
 
   // useEffect(() => {
   //   fetch("http://localhost:5000/blogs")
@@ -57,11 +71,11 @@ const RecentBlogs = () => {
     );
   }
 
-  console.log(recentBlogs);
+  console.log(blogsRecent);
 
   return (
     <div className=" max-w-7xl mx-auto gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-      {recentBlogs?.map((recentBlog, idx) => (
+      {blogsRecent?.map((recentBlog, idx) => (
         <RecentBlog key={idx} recentBlog={recentBlog}></RecentBlog>
       ))}
     </div>
