@@ -1,4 +1,4 @@
-import { Link, useLoaderData } from "react-router-dom";
+import { useLoaderData } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
@@ -30,8 +30,9 @@ const BlogDetails = () => {
 
     const comment = e.target.comments.value;
     const commentsData = {};
-    commentsData.email = email;
-    commentsData.photo = photoURL;
+    commentsData.blog_id = _id;
+    commentsData.userEmail = email;
+    commentsData.userPhoto = photoURL;
     commentsData.userName = displayName;
     commentsData.comment = comment || "No Data";
 
@@ -61,16 +62,38 @@ const BlogDetails = () => {
 
           {/*  */}
           <div className="card-actions justify-end">
-            <Link to={`/blog-details/${_id}`}>
-              <button className="btn btn-primary rounded-xl">Details</button>
-            </Link>
-            <button className="btn btn-primary rounded-xl">Wishlist</button>
+            {email === authorEmail && (
+              <button className="btn btn-primary rounded-xl">Update</button>
+            )}
           </div>
         </div>
       </div>
 
       {/* comments area */}
-      {email !== authorEmail && (
+      {email === authorEmail ? (
+        <div className="flex mt-5 justify-center items-center">
+          <form onSubmit={handleAddComment}>
+            <div>
+              <textarea
+                className="textarea textarea-primary text-center text-xl  w-96 outline-none"
+                placeholder="Comments"
+                name="comments"
+                value={"Author can not comment on own blog"}
+                disabled
+              ></textarea>
+            </div>
+
+            <div className="text-center">
+              <input
+                type="submit"
+                value="Comments"
+                className="btn btn-primary"
+                disabled
+              />
+            </div>
+          </form>
+        </div>
+      ) : (
         <div className="flex mt-5 justify-center items-center">
           <form onSubmit={handleAddComment}>
             <div>
