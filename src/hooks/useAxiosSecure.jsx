@@ -5,8 +5,8 @@ const axiosSecure = axios.create({
   withCredentials: true,
 });
 
-const useAxios = () => {
+const useAxiosSecure = () => {
   return axiosSecure;
 };
 
-export default useAxios;
+export default useAxiosSecure;
