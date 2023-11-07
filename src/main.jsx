@@ -15,6 +15,7 @@ import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import BlogDetails from "./BlogDetails/BlogDetails.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -50,6 +51,10 @@ const routes = createBrowserRouter([
       {
         path: "/wishlist",
         element: <Wishlist></Wishlist>,
+      },
+      {
+        path: "/blog-details/:id",
+        element: <BlogDetails></BlogDetails>,
       },
       {
         path: "/login",
