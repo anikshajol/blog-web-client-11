@@ -27,6 +27,8 @@ const BlogDetails = () => {
     // authorImage,
   } = blog;
 
+  const [comments, setComments] = useState([]);
+
   const handleAddComment = (e) => {
     e.preventDefault();
     console.log(e.target.comments.value);
@@ -45,12 +47,13 @@ const BlogDetails = () => {
       console.log(res.data);
       if (res.data.insertedId) {
         toast.success("Thanks for your comments");
+        setComments([...comments, commentsData]);
         e.target.comments.value = "";
       }
     });
   };
 
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
 
   useEffect(() => {
     axios.get("http://localhost:5000/comments").then((res) => {
@@ -92,8 +95,8 @@ const BlogDetails = () => {
       {/* showing comments */}
       <div className="my-6  ">
         <h2 className="text-center text-xl">User Comments</h2>
-        {comments.map((userComment) => (
-          <Comments key={userComment._id} userComment={userComment}></Comments>
+        {comments.map((userComment, idx) => (
+          <Comments key={idx} userComment={userComment}></Comments>
         ))}
       </div>
       {/* comments area */}
