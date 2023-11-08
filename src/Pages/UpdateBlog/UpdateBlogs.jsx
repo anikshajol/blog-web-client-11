@@ -4,20 +4,12 @@ import useAuth from "../../hooks/useAuth";
 import { useEffect } from "react";
 import axios from "axios";
 import toast from "react-hot-toast";
-// import { useState } from "react";
+import { useState } from "react";
 
 const UpdateBlogs = () => {
   const { user } = useAuth();
 
   const blog = useLoaderData();
-  //   const [categories, setCategories] = useState([]);
-  useEffect(() => {
-    axios.get("http://localhost:5000/blogs").then((res) => {
-      const data = res.data;
-      console.log(data);
-      //   setCategories(data);
-    });
-  }, []);
 
   const {
     _id,
@@ -29,6 +21,17 @@ const UpdateBlogs = () => {
     // time,
     // authorEmail,
   } = blog;
+
+  const [categories, setCategories] = useState([]);
+  useEffect(() => {
+    axios.get("http://localhost:5000/categories").then((res) => {
+      const data = res.data;
+      console.log(data);
+      setCategories(data);
+    });
+  }, []);
+
+  console.log(categories);
 
   const handleUpdateBlogPost = (e) => {
     e.preventDefault();
@@ -137,19 +140,20 @@ const UpdateBlogs = () => {
           {/* layer 3 */}
           <div className="py-5">
             {/* category */}
+            <label htmlFor="category">Select a category:</label>
             <div className="input-group">
-              {/* <select
-                required
+              <select
                 className="select select-bordered"
                 name="category"
+                value={category}
               >
                 {categories.map((cat) => (
-                  <option defaultValue={cat.category} key={cat._id}>
-                    {cat.category}
+                  <option defaultValue={cat.name} key={cat._id}>
+                    {cat.name}
                   </option>
                 ))}
-              </select> */}
-              <div className="w-1/2 pr-5">
+              </select>
+              {/* <div className="w-1/2 pr-5">
                 <label className="input-group input-group-vertical">
                   <span>Add Category</span>
                   <input
@@ -160,7 +164,7 @@ const UpdateBlogs = () => {
                     defaultValue={category}
                   />
                 </label>
-              </div>
+              </div> */}
 
               {/* <button className="btn">Go</button> */}
             </div>
