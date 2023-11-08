@@ -15,12 +15,14 @@ const AllBlog = ({ recentBlog: allBlog }) => {
     list.title = title;
     list.image = image;
     list.blog_id = _id;
+    list.category = category;
 
     console.log(list);
 
     console.log("add to wishlist");
     axios.post(`http://localhost:5000/wishlist`, list).then((res) => {
       console.log(res.data);
+
       if (res.data.insertedId) {
         toast.success(`${title} added to your wishlist`);
       }
