@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
+import { PhotoView } from "react-photo-view";
 import { Link } from "react-router-dom";
+import "react-photo-view/dist/react-photo-view.css";
 // import Skeleton from "react-loading-skeleton";
 // import Skeleton from "react-loading-skeleton";
 // import "react-loading-skeleton/dist/skeleton.css";
@@ -18,7 +20,9 @@ const RecentBlog = ({ recentBlog }) => {
     <div>
       <div className="card card-compact h-96 bg-base-100 shadow-xl">
         <figure>
-          <img src={image} alt={title} />
+          <PhotoView src={image}>
+            <img src={image} alt={title} />
+          </PhotoView>
         </figure>
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
