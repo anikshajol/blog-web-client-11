@@ -1,22 +1,35 @@
+import axios from "axios";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-// import Skeleton from "react-loading-skeleton";
-// import Skeleton from "react-loading-skeleton";
-// import "react-loading-skeleton/dist/skeleton.css";
-
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 const AllBlog = ({ recentBlog: allBlog }) => {
-  //   console.log(Object.keys(recentBlog).join(","));
+  const { user } = useAuth();
   const { title, image, short_description, _id, category } = allBlog;
 
   // const [loading,setLoading] = useState(false)
 
   const handleAddToWishList = () => {
+    const list = {};
+    list.email = user.email;
+    list.title = title;
+    list.image = image;
+    list.blog_id = _id;
+
+    console.log(list);
+
     console.log("add to wishlist");
+    axios.post(`http://localhost:5000/wishlist`, list).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success(`${title} added to your wishlist`);
+      }
+    });
   };
 
   return (
     <div>
-      <div className="card card-compact h-96 bg-base-100 shadow-xl">
+      <div className="card card-compact h-[30rem] bg-base-100 shadow-xl">
         <figure>
           <img src={image} alt={title} />
         </figure>
