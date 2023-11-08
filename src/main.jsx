@@ -15,7 +15,8 @@ import AuthProvider from "./AuthProvider/AuthProvider.jsx";
 import { Toaster } from "react-hot-toast";
 import PrivateRoute from "./PrivateRoute/PrivateRoute.jsx";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import BlogDetails from "./BlogDetails/BlogDetails.jsx";
+import BlogDetails from "./Pages/BlogDetails/BlogDetails.jsx";
+import UpdateBlogs from "./Pages/UpdateBlog/UpdateBlogs.jsx";
 
 const routes = createBrowserRouter([
   {
@@ -57,6 +58,16 @@ const routes = createBrowserRouter([
         element: (
           <PrivateRoute>
             <BlogDetails></BlogDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5000/blogs/${params.id}`),
+      },
+      {
+        path: "/update/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateBlogs></UpdateBlogs>
           </PrivateRoute>
         ),
         loader: ({ params }) =>

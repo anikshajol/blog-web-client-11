@@ -1,9 +1,10 @@
-import { useLoaderData } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
+import { Link, useLoaderData } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";
-import Comments from "./Comments";
+
 import { useEffect, useState } from "react";
+import useAuth from "../../hooks/useAuth";
+import Comments from "./Comments";
 const BlogDetails = () => {
   const blog = useLoaderData();
 
@@ -80,12 +81,15 @@ const BlogDetails = () => {
           {/*  */}
           <div className="card-actions justify-end">
             {email === authorEmail && (
-              <button className="btn btn-primary rounded-xl">Update</button>
+              <Link to={`/update/${_id}`}>
+                <button className="btn btn-primary rounded-xl">Update</button>
+              </Link>
             )}
           </div>
         </div>
       </div>
 
+      {/* showing comments */}
       <div className="my-6  ">
         <h2 className="text-center text-xl">User Comments</h2>
         {comments.map((userComment) => (
