@@ -54,17 +54,17 @@ const BlogDetails = () => {
   useEffect(() => {
     axios.get("http://localhost:5000/comments").then((res) => {
       console.log(res.data);
-      setComments(res.data);
+      const commentByMatch = res.data.filter(
+        (comment) => comment.blog_id === blog._id
+      );
+      setComments(commentByMatch);
     });
-  }, []);
+  }, [blog._id]);
 
   //   console.log(commentData);
 
-  const commentByMatch = comments.filter(
-    (comment) => comment.blog_id === blog._id
-  );
   console.log(comments);
-  console.log(commentByMatch);
+  // console.log(commentByMatch);
 
   return (
     <div>
@@ -88,7 +88,7 @@ const BlogDetails = () => {
 
       <div className="my-6  ">
         <h2 className="text-center text-xl">User Comments</h2>
-        {commentByMatch.map((userComment) => (
+        {comments.map((userComment) => (
           <Comments key={userComment._id} userComment={userComment}></Comments>
         ))}
       </div>

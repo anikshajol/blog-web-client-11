@@ -5,11 +5,11 @@ import { FaQuoteRight } from "react-icons/fa";
 const Comments = ({ userComment }) => {
   console.log(Object.keys(userComment).join(","));
 
-  const { _id, blog_id, userEmail, userPhoto, userName, comment } = userComment;
+  const { userPhoto, userName, comment } = userComment;
 
   return (
-    <div className="my-6 border border-red-400 p-4">
-      <figure className="max-w-screen-md mx-auto text-center">
+    <div className="my-6 ">
+      <figure className="max-w-screen-md mx-auto text-center border border-gray-400 rounded-md p-4">
         <div className="flex justify-center">
           <FaQuoteRight className="text-center" />
         </div>
