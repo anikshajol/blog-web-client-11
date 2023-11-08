@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 // import useAxios from "../../hooks/useAxios";
 import toast from "react-hot-toast";
 import axios from "axios";
+import { useQuery } from "@tanstack/react-query";
 
 const AddBlog = () => {
   // const { axiosSecure } = useAxios();
@@ -31,12 +32,27 @@ const AddBlog = () => {
     };
     console.log(blog);
     axios.post("http://localhost:5000/blogs", blog).then((res) => {
-      if (res.data.insertedID) {
+      console.log(res.data);
+      if (res.data.insertedId) {
         toast.success("Data added Successfully");
         console.log(res.data);
       }
     });
   };
+
+  const { data } = useQuery({
+    queryKey: ["categoriesData"],
+    queryFn: async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/categories");
+        return res.data;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  console.log(data);
 
   return (
     <div className="max-w-7xl mx-auto">
@@ -116,19 +132,9 @@ const AddBlog = () => {
           {/* category */}
           <div className="input-group">
             <select required className="select select-bordered" name="category">
-              <option disabled selected>
-                Pick category
-              </option>
-              <option value={"Beach Destinations"}>Beach Destinations</option>
-              <option value={"Mountain Expeditions"}>
-                Mountain Expeditions
-              </option>
-              <option value={"Cultural Experiences"}>
-                Cultural Experiences
-              </option>
-              <option value={"Wildlife Safari"}>Wildlife Safari</option>
-              <option value={"City Escapes"}>City Escapes</option>
-              <option value={"Road Trips"}>Road Trips</option>
+              {data?.map((cat) => (
+                <option key={cat._id}> {cat.name} </option>
+              ))}
             </select>
             {/* <button className="btn">Go</button> */}
           </div>

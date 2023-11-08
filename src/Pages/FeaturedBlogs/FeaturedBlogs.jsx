@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import DataTable from "react-data-table-component";
 import Spinner from "../../Spinner/Spinner";
+import Footer from "../Footer/Footer";
 
 const FeaturedBlogs = () => {
   const { data: blogData, isLoading } = useQuery({
@@ -45,16 +46,23 @@ const FeaturedBlogs = () => {
 
     {
       name: "Photo",
-      selector: (blogData) => <img src={blogData.authorImage} alt="" />,
+      selector: (blogData) => (
+        <div className="avatar">
+          <div className="w-24 rounded-full">
+            <img src={blogData.authorImage || "NO Photo"} />
+          </div>
+        </div>
+      ),
     },
   ];
 
   return (
     <div>
       <h2 className="text-2xl font-bold text-center">Featured Blogs</h2>
-      <div className="w-1/2 mx-auto">
+      <div className="w-9/12 mx-auto">
         <DataTable columns={columns} data={blogData} />
       </div>
+      <Footer></Footer>
     </div>
   );
 };
