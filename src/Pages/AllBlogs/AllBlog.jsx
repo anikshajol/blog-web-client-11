@@ -3,6 +3,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import "react-photo-view/dist/react-photo-view.css";
+import { PhotoView } from "react-photo-view";
+
 const AllBlog = ({ recentBlog: allBlog }) => {
   const { user } = useAuth();
   const { title, image, short_description, _id, category } = allBlog;
@@ -34,7 +37,9 @@ const AllBlog = ({ recentBlog: allBlog }) => {
     <div>
       <div className="card card-compact h-[30rem] bg-base-100 shadow-xl">
         <figure>
-          <img src={image} alt={title} />
+          <PhotoView src={image}>
+            <img src={image} alt={title} />
+          </PhotoView>
         </figure>
         <div className="card-body">
           <h2 className="card-title">{title}</h2>

@@ -3,6 +3,7 @@ import LoadingSkeleton from "../../Spinner/LoadingSkeleton";
 import { motion } from "framer-motion";
 import AllBlog from "./AllBlog";
 import "react-loading-skeleton/dist/skeleton.css";
+import Footer from "../Footer/Footer";
 
 const AllBlogs = () => {
   const { data, isLoading } = useQuery({
@@ -37,6 +38,7 @@ const AllBlogs = () => {
           <AllBlog key={idx} recentBlog={allBlog}></AllBlog>
         ))}
       </div>
+      <Footer></Footer>
     </div>
   );
 };
