@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 const AllBlog = ({ recentBlog: allBlog }) => {
   //   console.log(Object.keys(recentBlog).join(","));
-  const { title, image, short_description, _id } = allBlog;
+  const { title, image, short_description, _id, category } = allBlog;
 
   // const [loading,setLoading] = useState(false)
 
@@ -23,6 +23,9 @@ const AllBlog = ({ recentBlog: allBlog }) => {
         <div className="card-body">
           <h2 className="card-title">{title}</h2>
           <p>{short_description}</p>
+          <div className="card-actions justify-end">
+            <div className="badge badge-outline">{category}</div>
+          </div>
           <div className="card-actions justify-end">
             <Link to={`/blog-details/${_id}`}>
               <button className="btn btn-primary rounded-xl">Details</button>
