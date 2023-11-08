@@ -10,7 +10,9 @@ import { useEffect } from "react";
 import axios from "axios";
 
 const AllBlogs = () => {
-  const [selectedCategory, setSelectedCategory] = useState(""); //
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
@@ -48,31 +50,63 @@ const AllBlogs = () => {
     );
   }
 
+  const handleSearch = (e) => {
+    const term = e.target.value;
+    setSearchQuery(term);
+
+    // Filter data based on the search term
+    const filteredResults = data.filter((item) =>
+      item.title.toLowerCase().includes(term.toLowerCase())
+    );
+
+    setSearchResults(filteredResults);
+
+    // console.log(filteredResults);
+  };
+
   return (
     <div>
-      {/*  select option for filtering by category */}
-      <div className="max-w-7xl mx-auto gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 font-bold">
-        <label>
-          Filter by Category:
-          <select
-            className="border border-gray-400"
-            value={selectedCategory}
-            onChange={(e) => setSelectedCategory(e.target.value)}
-          >
-            <option value="">All</option>
-            {categories?.map((cat) => (
-              <option key={cat._id} value={cat.name}>
-                {cat.name}
-              </option>
-            ))}
-          </select>
-        </label>
+      {/*  select option for filtering by category and search by title */}
+      <div className="max-w-7xl mx-auto gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mb-10 font-bold items-center">
+        {/* filter */}
+        <div>
+          <label>
+            Filter by Category:
+            <select
+              className="border border-gray-400 p-3 w-40 rounded-md outline-none"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              <option value="">All</option>
+              {categories?.map((cat) => (
+                <option key={cat._id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
+            </select>
+          </label>
+        </div>
+
+        {/* search */}
+        <div>
+          <input
+            type="search"
+            name="search"
+            className=" outline-none border border-gray-400 rounded-md  p-3"
+            id="search"
+            placeholder="Search Here..."
+            value={searchQuery}
+            onChange={handleSearch}
+          />
+        </div>
       </div>
 
       <div className="max-w-7xl mx-auto gap-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-        {data?.map((blog, idx) => (
-          <AllBlog key={idx} blog={blog}></AllBlog>
-        ))}
+        {searchQuery
+          ? searchResults?.map((blog, idx) => (
+              <AllBlog key={idx} blog={blog}></AllBlog>
+            ))
+          : data?.map((blog, idx) => <AllBlog key={idx} blog={blog}></AllBlog>)}
       </div>
       <Footer></Footer>
     </div>
