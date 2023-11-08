@@ -16,6 +16,7 @@ const AllBlog = ({ recentBlog: allBlog }) => {
     list.image = image;
     list.blog_id = _id;
     list.category = category;
+    list.short_description = short_description;
 
     console.log(list);
 

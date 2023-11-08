@@ -67,8 +67,9 @@ const Wishlist = () => {
                         </div>
                       </div>
                     </td>
-                    <td>{list?.title}</td>
-                    <td>{list?.category}</td>
+                    <td>{list.title}</td>
+                    <td>{list.short_description}</td>
+                    <td>{list.category}</td>
                     <th>
                       <div className="">
                         <Link to={`/blog-details/${list.blog_id}`}>
