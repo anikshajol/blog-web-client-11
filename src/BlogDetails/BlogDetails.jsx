@@ -3,6 +3,7 @@ import useAuth from "../hooks/useAuth";
 import axios from "axios";
 import toast from "react-hot-toast";
 import Comments from "./Comments";
+import { useEffect, useState } from "react";
 const BlogDetails = () => {
   const blog = useLoaderData();
 
@@ -48,7 +49,22 @@ const BlogDetails = () => {
     });
   };
 
+  const [comments, setComments] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/comments").then((res) => {
+      console.log(res.data);
+      setComments(res.data);
+    });
+  }, []);
+
   //   console.log(commentData);
+
+  const commentByMatch = comments.filter(
+    (comment) => comment.blog_id === blog._id
+  );
+  console.log(comments);
+  console.log(commentByMatch);
 
   return (
     <div>
@@ -70,8 +86,11 @@ const BlogDetails = () => {
         </div>
       </div>
 
-      <div>
-        <Comments></Comments>
+      <div className="my-6  ">
+        <h2 className="text-center text-xl">User Comments</h2>
+        {commentByMatch.map((userComment) => (
+          <Comments key={userComment._id} userComment={userComment}></Comments>
+        ))}
       </div>
       {/* comments area */}
       {email === authorEmail ? (
