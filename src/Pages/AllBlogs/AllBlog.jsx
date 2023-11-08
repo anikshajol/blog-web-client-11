@@ -6,9 +6,9 @@ import toast from "react-hot-toast";
 import "react-photo-view/dist/react-photo-view.css";
 import { PhotoView } from "react-photo-view";
 
-const AllBlog = ({ recentBlog: allBlog }) => {
+const AllBlog = ({ blog }) => {
   const { user } = useAuth();
-  const { title, image, short_description, _id, category } = allBlog;
+  const { title, image, short_description, _id, category } = blog;
 
   // const [loading,setLoading] = useState(false)
 
@@ -65,7 +65,7 @@ const AllBlog = ({ recentBlog: allBlog }) => {
 };
 
 AllBlog.propTypes = {
-  recentBlog: PropTypes.object,
+  blog: PropTypes.object,
 };
 
 export default AllBlog;
