@@ -49,7 +49,11 @@ const FeaturedBlogs = () => {
       selector: (blogData) => (
         <div className="avatar">
           <div className="w-24 rounded-full">
-            <img src={blogData.authorImage || "NO Photo"} />
+            {blogData.authorImage ? (
+              <img src={blogData.authorImage} />
+            ) : (
+              <p className="text-center py-2">No Image</p>
+            )}
           </div>
         </div>
       ),
