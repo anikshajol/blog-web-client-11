@@ -16,23 +16,41 @@ const AllBlogs = () => {
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/categories").then((res) => {
-      const data = res.data;
-      console.log(data);
-      setCategories(data);
-    });
+    axios
+      .get("http://localhost:5000/categories", {
+        withCredentials: true,
+      })
+      .then((res) => {
+        const data = res.data;
+        console.log(data);
+        setCategories(data);
+      });
   }, []);
   console.log(selectedCategory);
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["allBlogs", selectedCategory],
     queryFn: async () => {
-      const data = await fetch(
-        `http://localhost:5000/blogs?category=${selectedCategory}`
-      );
-      return data.json();
+      try {
+        const response = await axios.get(
+          `http://localhost:5000/blogs?category=${selectedCategory}`,
+          {
+            withCredentials: true,
+          }
+        );
+        console.log(response.data);
+        return response.data;
+      } catch (error) {
+        console.error(error);
+        throw error;
+      }
     },
   });
+
+  if (error) {
+    console.error("Error fetching data:", error);
+    // Handle the error or display an error message
+  }
 
   if (isLoading) {
     const skeleton = Array.from({ length: 6 });

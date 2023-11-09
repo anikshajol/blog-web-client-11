@@ -36,7 +36,10 @@ const RecentBlogs = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/blogs/recent-post"
+          "http://localhost:5000/blogs/recent-post",
+          {
+            withCredentials: true,
+          }
         );
         console.log(response.data);
         return response.data;

@@ -14,7 +14,8 @@ const Wishlist = () => {
     queryFn: async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/wishlist?email=${user.email}`
+          `http://localhost:5000/wishlist?email=${user.email}`,
+          { withCredentials: true }
         );
         return res.data;
       } catch (error) {
@@ -26,6 +27,10 @@ const Wishlist = () => {
 
   if (isLoading) {
     return <Spinner></Spinner>;
+  }
+
+  if (!data || data.length === 0) {
+    return <div>No items in wishlist</div>;
   }
 
   const handleDelete = (_id) => {
@@ -49,7 +54,7 @@ const Wishlist = () => {
         <div className="overflow-x-auto w-3/4 mx-auto">
           {data?.map((list) => (
             <>
-              <table className="table">
+              <table key={list._id} className="table">
                 {/* head */}
 
                 <tbody>
