@@ -24,7 +24,7 @@ const UpdateBlogs = () => {
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get("http://localhost:5000/categories").then((res) => {
+    axios.get("https://blog-server-side.vercel.app/categories").then((res) => {
       const data = res.data;
       console.log(data);
       setCategories(data);
@@ -52,12 +52,14 @@ const UpdateBlogs = () => {
       category,
     };
 
-    axios.put(`http://localhost:5000/blogs/${_id}`, updateBlog).then((res) => {
-      console.log(res.data);
-      if (res.data.modifiedCount > 0) {
-        toast.success("Update Successfully");
-      }
-    });
+    axios
+      .put(`https://blog-server-side.vercel.app/blogs/${_id}`, updateBlog)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.modifiedCount > 0) {
+          toast.success("Update Successfully");
+        }
+      });
   };
   return (
     <div>

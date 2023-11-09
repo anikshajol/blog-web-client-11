@@ -43,20 +43,22 @@ const BlogDetails = () => {
 
     console.log(commentsData);
 
-    axios.post(`http://localhost:5000/comments`, commentsData).then((res) => {
-      console.log(res.data);
-      if (res.data.insertedId) {
-        toast.success("Thanks for your comments");
-        setComments([...comments, commentsData]);
-        e.target.comments.value = "";
-      }
-    });
+    axios
+      .post(`https://blog-server-side.vercel.app/comments`, commentsData)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          toast.success("Thanks for your comments");
+          setComments([...comments, commentsData]);
+          e.target.comments.value = "";
+        }
+      });
   };
 
   // const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/comments").then((res) => {
+    axios.get("https://blog-server-side.vercel.app/comments").then((res) => {
       console.log(res.data);
       const commentByMatch = res.data.filter(
         (comment) => comment.blog_id === blog._id

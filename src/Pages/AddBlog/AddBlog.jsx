@@ -31,20 +31,24 @@ const AddBlog = () => {
       authorImage,
     };
     console.log(blog);
-    axios.post("http://localhost:5000/blogs", blog).then((res) => {
-      console.log(res.data);
-      if (res.data.insertedId) {
-        toast.success("Data added Successfully");
+    axios
+      .post("https://blog-server-side.vercel.app/blogs", blog)
+      .then((res) => {
         console.log(res.data);
-      }
-    });
+        if (res.data.insertedId) {
+          toast.success("Data added Successfully");
+          console.log(res.data);
+        }
+      });
   };
 
   const { data } = useQuery({
     queryKey: ["categoriesData"],
     queryFn: async () => {
       try {
-        const res = await axios.get("http://localhost:5000/categories");
+        const res = await axios.get(
+          "https://blog-server-side.vercel.app/categories"
+        );
         return res.data;
       } catch (error) {
         console.error(error);

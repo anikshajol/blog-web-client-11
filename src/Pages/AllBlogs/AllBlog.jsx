@@ -24,13 +24,15 @@ const AllBlog = ({ blog }) => {
     console.log(list);
 
     console.log("add to wishlist");
-    axios.post(`http://localhost:5000/wishlist`, list).then((res) => {
-      console.log(res.data);
+    axios
+      .post(`https://blog-server-side.vercel.app/wishlist`, list)
+      .then((res) => {
+        console.log(res.data);
 
-      if (res.data.insertedId) {
-        toast.success(`${title} added to your wishlist`);
-      }
-    });
+        if (res.data.insertedId) {
+          toast.success(`${title} added to your wishlist`);
+        }
+      });
   };
 
   return (

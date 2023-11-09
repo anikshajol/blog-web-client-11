@@ -14,7 +14,7 @@ const Wishlist = () => {
     queryFn: async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/wishlist?email=${user.email}`,
+          `https://blog-server-side.vercel.app/wishlist?email=${user.email}`,
           { withCredentials: true }
         );
         return res.data;
@@ -35,13 +35,15 @@ const Wishlist = () => {
 
   const handleDelete = (_id) => {
     console.log(_id);
-    axios.delete(`http://localhost:5000/wishlist/${_id}`).then((res) => {
-      console.log(res.data);
-      if (res.data.deletedCount > 0) {
-        toast.success("Deleted!", "Your file has been deleted.", "success");
-      }
-      refetch();
-    });
+    axios
+      .delete(`https://blog-server-side.vercel.app/wishlist/${_id}`)
+      .then((res) => {
+        console.log(res.data);
+        if (res.data.deletedCount > 0) {
+          toast.success("Deleted!", "Your file has been deleted.", "success");
+        }
+        refetch();
+      });
   };
 
   console.log(data);

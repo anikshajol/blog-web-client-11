@@ -17,7 +17,7 @@ const AllBlogs = () => {
   const [categories, setCategories] = useState([]);
   useEffect(() => {
     axios
-      .get("http://localhost:5000/categories", {
+      .get("https://blog-server-side.vercel.app/categories", {
         withCredentials: true,
       })
       .then((res) => {
@@ -33,7 +33,7 @@ const AllBlogs = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/blogs?category=${selectedCategory}`,
+          `https://blog-server-side.vercel.app/blogs?category=${selectedCategory}`,
           {
             withCredentials: true,
           }

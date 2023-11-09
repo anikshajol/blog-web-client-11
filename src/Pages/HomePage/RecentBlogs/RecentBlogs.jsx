@@ -20,7 +20,7 @@ const RecentBlogs = () => {
   // console.log(loading);
 
   // useEffect(() => {
-  //   axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
+  //   axios.get("https://blog-server-side.vercel.app/blogs/recent-post").then((res) => {
   //     setRecentBlogs(res.data);
   //   });
   // }, []);
@@ -36,7 +36,7 @@ const RecentBlogs = () => {
     queryFn: async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/blogs/recent-post",
+          "https://blog-server-side.vercel.app/blogs/recent-post",
           {
             withCredentials: true,
           }
@@ -51,7 +51,7 @@ const RecentBlogs = () => {
   });
 
   // useEffect(() => {
-  //   fetch("http://localhost:5000/blogs")
+  //   fetch("https://blog-server-side.vercel.app/blogs")
   //     .then((res) => res.json())
   //     .then((data) => setRecentBlogs(data));
   // }, []);
