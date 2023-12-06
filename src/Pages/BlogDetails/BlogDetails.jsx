@@ -1,12 +1,14 @@
 import { Link, useLoaderData } from "react-router-dom";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Comments from "./Comments";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 const BlogDetails = () => {
   const blog = useLoaderData();
+  const axiosPublic = useAxiosPublic();
 
   const { user } = useAuth();
   const { email, photoURL, displayName } = user;
@@ -43,29 +45,27 @@ const BlogDetails = () => {
 
     console.log(commentsData);
 
-    axios
-      .post(`https://blog-server-side.vercel.app/comments`, commentsData)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.insertedId) {
-          toast.success("Thanks for your comments");
-          setComments([...comments, commentsData]);
-          e.target.comments.value = "";
-        }
-      });
+    axiosPublic.post(`/comments`, commentsData).then((res) => {
+      console.log(res.data);
+      if (res.data.insertedId) {
+        toast.success("Thanks for your comments");
+        setComments([...comments, commentsData]);
+        e.target.comments.value = "";
+      }
+    });
   };
 
   // const [comments, setComments] = useState([]);
 
   useEffect(() => {
-    axios.get("https://blog-server-side.vercel.app/comments").then((res) => {
+    axiosPublic("/comments").then((res) => {
       console.log(res.data);
       const commentByMatch = res.data.filter(
         (comment) => comment.blog_id === blog._id
       );
       setComments(commentByMatch);
     });
-  }, [blog._id]);
+  }, [axiosPublic, blog._id]);
 
   //   console.log(commentData);
 

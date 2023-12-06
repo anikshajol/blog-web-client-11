@@ -7,20 +7,21 @@ import useAuth from "../../../hooks/useAuth";
 
 import { useQuery } from "@tanstack/react-query";
 
-import axios from "axios";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 // import axios from "axios";
 
 // import Skeleton from "react-loading-skeleton";
 
 const RecentBlogs = () => {
   // const axiosSecure = useAxios();
+  const axiosPublic = useAxiosPublic();
 
   // const [recentBlogs, setRecentBlogs] = useState([]);
   const { loading } = useAuth();
   // console.log(loading);
 
   // useEffect(() => {
-  //   axios.get("https://blog-server-side.vercel.app/blogs/recent-post").then((res) => {
+  //   axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
   //     setRecentBlogs(res.data);
   //   });
   // }, []);
@@ -35,12 +36,7 @@ const RecentBlogs = () => {
     queryKey: ["recentBlogs"],
     queryFn: async () => {
       try {
-        const response = await axios.get(
-          "https://blog-server-side.vercel.app/blogs/recent-post",
-          {
-            withCredentials: true,
-          }
-        );
+        const response = await axiosPublic.get("/blogs/recent-post");
         console.log(response.data);
         return response.data;
       } catch (error) {
@@ -51,7 +47,7 @@ const RecentBlogs = () => {
   });
 
   // useEffect(() => {
-  //   fetch("https://blog-server-side.vercel.app/blogs")
+  //   fetch("http://localhost:5000/blogs")
   //     .then((res) => res.json())
   //     .then((data) => setRecentBlogs(data));
   // }, []);

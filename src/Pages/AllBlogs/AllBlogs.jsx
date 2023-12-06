@@ -7,36 +7,30 @@ import AllBlog from "./AllBlog";
 import "react-loading-skeleton/dist/skeleton.css";
 import Footer from "../Footer/Footer";
 import { useEffect } from "react";
-import axios from "axios";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const AllBlogs = () => {
   const [selectedCategory, setSelectedCategory] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
+  const axiosPublic = useAxiosPublic();
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios
-      .get("https://blog-server-side.vercel.app/categories", {
-        withCredentials: true,
-      })
-      .then((res) => {
-        const data = res.data;
-        console.log(data);
-        setCategories(data);
-      });
-  }, []);
+    axiosPublic.get("/categories").then((res) => {
+      const data = res.data;
+      console.log(data);
+      setCategories(data);
+    });
+  }, [axiosPublic]);
   console.log(selectedCategory);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["allBlogs", selectedCategory],
     queryFn: async () => {
       try {
-        const response = await axios.get(
-          `https://blog-server-side.vercel.app/blogs?category=${selectedCategory}`,
-          {
-            withCredentials: true,
-          }
+        const response = await axiosPublic.get(
+          `/blogs?category=${selectedCategory}`
         );
         console.log(response.data);
         return response.data;

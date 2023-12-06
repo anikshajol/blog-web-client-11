@@ -2,12 +2,14 @@ import { useLoaderData } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 import { useEffect } from "react";
-import axios from "axios";
+
 import toast from "react-hot-toast";
 import { useState } from "react";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const UpdateBlogs = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
   const blog = useLoaderData();
 
@@ -24,12 +26,12 @@ const UpdateBlogs = () => {
 
   const [categories, setCategories] = useState([]);
   useEffect(() => {
-    axios.get("https://blog-server-side.vercel.app/categories").then((res) => {
+    axiosPublic.get("/categories").then((res) => {
       const data = res.data;
       console.log(data);
       setCategories(data);
     });
-  }, []);
+  }, [axiosPublic]);
 
   console.log(categories);
 
@@ -52,14 +54,12 @@ const UpdateBlogs = () => {
       category,
     };
 
-    axios
-      .put(`https://blog-server-side.vercel.app/blogs/${_id}`, updateBlog)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.modifiedCount > 0) {
-          toast.success("Update Successfully");
-        }
-      });
+    axiosPublic.put(`/blogs/${_id}`, updateBlog).then((res) => {
+      console.log(res.data);
+      if (res.data.modifiedCount > 0) {
+        toast.success("Update Successfully");
+      }
+    });
   };
   return (
     <div>

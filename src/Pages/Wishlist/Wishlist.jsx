@@ -5,18 +5,17 @@ import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import Spinner from "../../Spinner/Spinner";
+import useAxiosPublic from "../../hooks/useAxiosPublic";
 
 const Wishlist = () => {
   const { user } = useAuth();
+  const axiosPublic = useAxiosPublic();
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["wishlist"],
     queryFn: async () => {
       try {
-        const res = await axios.get(
-          `https://blog-server-side.vercel.app/wishlist?email=${user.email}`,
-          { withCredentials: true }
-        );
+        const res = await axiosPublic.get(`/wishlist?email=${user.email}`);
         return res.data;
       } catch (error) {
         console.log(error);
@@ -35,15 +34,13 @@ const Wishlist = () => {
 
   const handleDelete = (_id) => {
     console.log(_id);
-    axios
-      .delete(`https://blog-server-side.vercel.app/wishlist/${_id}`)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.deletedCount > 0) {
-          toast.success("Deleted!", "Your file has been deleted.", "success");
-        }
-        refetch();
-      });
+    axios.delete(`http://localhost:5000/wishlist/${_id}`).then((res) => {
+      console.log(res.data);
+      if (res.data.deletedCount > 0) {
+        toast.success("Deleted!", "Your file has been deleted.", "success");
+      }
+      refetch();
+    });
   };
 
   console.log(data);
