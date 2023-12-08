@@ -62,7 +62,9 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/blogs/${params.id}`),
+          fetch(
+            `https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/${params.id}`
+          ),
       },
       {
         path: "/update/:id",
@@ -72,7 +74,9 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5000/blogs/${params.id}`),
+          fetch(
+            `https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/${params.id}`
+          ),
       },
       {
         path: "/login",

@@ -21,7 +21,7 @@ const RecentBlogs = () => {
   // console.log(loading);
 
   // useEffect(() => {
-  //   axios.get("http://localhost:5000/blogs/recent-post").then((res) => {
+  //   axios.get("https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/recent-post").then((res) => {
   //     setRecentBlogs(res.data);
   //   });
   // }, []);
@@ -47,7 +47,7 @@ const RecentBlogs = () => {
   });
 
   // useEffect(() => {
-  //   fetch("http://localhost:5000/blogs")
+  //   fetch("https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs")
   //     .then((res) => res.json())
   //     .then((data) => setRecentBlogs(data));
   // }, []);

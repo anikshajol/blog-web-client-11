@@ -6,25 +6,35 @@ import { Link } from "react-router-dom";
 import { MdDelete } from "react-icons/md";
 import Spinner from "../../Spinner/Spinner";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
+// import { useEffect, useState } from "react";
 
 const Wishlist = () => {
-  const { user } = useAuth();
+  const { user, loading } = useAuth();
   const axiosPublic = useAxiosPublic();
+  const axiosSecure = axios;
+  // const [data, setData] = useState();
 
-  const { data, isLoading, refetch } = useQuery({
-    queryKey: ["wishlist"],
+  const { data, refetch } = useQuery({
+    queryKey: ["wishlist", user?.email],
     queryFn: async () => {
       try {
-        const res = await axiosPublic.get(`/wishlist?email=${user.email}`);
-        return res.data;
+        const res = await axiosSecure.get(`/wishlist?email=${user.email}`);
+        console.log(res);
+        // return res.data;
       } catch (error) {
         console.log(error);
-        throw error;
       }
     },
   });
 
-  if (isLoading) {
+  // useEffect(() => {
+  //   fetch(`https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/wishlist?email=${user.email}`)
+  //     .then((res) => res.json())
+  //     .then((data) => setData(data));
+  // }, [axiosPublic, user.email]);
+
+  console.log(data);
+  if (loading) {
     return <Spinner></Spinner>;
   }
 
@@ -34,7 +44,7 @@ const Wishlist = () => {
 
   const handleDelete = (_id) => {
     console.log(_id);
-    axios.delete(`http://localhost:5000/wishlist/${_id}`).then((res) => {
+    axiosPublic.delete(`/wishlist/${_id}`).then((res) => {
       console.log(res.data);
       if (res.data.deletedCount > 0) {
         toast.success("Deleted!", "Your file has been deleted.", "success");
