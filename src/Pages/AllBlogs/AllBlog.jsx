@@ -25,7 +25,9 @@ const AllBlog = ({ blog }) => {
 
     console.log("add to wishlist");
     axios
-      .post(`http://localhost:5000/wishlist`, list, { withCredentials: true })
+      .post(`https://blog-server-side.vercel.app/wishlist`, list, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res.data);
 

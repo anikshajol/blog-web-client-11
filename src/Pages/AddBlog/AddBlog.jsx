@@ -32,7 +32,9 @@ const AddBlog = () => {
     };
     console.log(blog);
     axios
-      .post("http://localhost:5000/blogs", blog, { withCredentials: true })
+      .post("https://blog-server-side.vercel.app/blogs", blog, {
+        withCredentials: true,
+      })
       .then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
@@ -46,9 +48,12 @@ const AddBlog = () => {
     queryKey: ["categoriesData"],
     queryFn: async () => {
       try {
-        const res = await axios.get("http://localhost:5000/categories", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://blog-server-side.vercel.app/categories",
+          {
+            withCredentials: true,
+          }
+        );
         return res.data;
       } catch (error) {
         console.error(error);

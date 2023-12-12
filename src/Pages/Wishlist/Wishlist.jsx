@@ -31,7 +31,7 @@ const Wishlist = () => {
   });
 
   // useEffect(() => {
-  //   fetch(`http://localhost:5000/wishlist?email=${user.email}`)
+  //   fetch(`https://blog-server-side.vercel.app/wishlist?email=${user.email}`)
   //     .then((res) => res.json())
   //     .then((data) => setData(data));
   // }, [axiosPublic, user.email]);
