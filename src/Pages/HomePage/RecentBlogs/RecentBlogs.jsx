@@ -7,24 +7,20 @@ import useAuth from "../../../hooks/useAuth";
 
 import { useQuery } from "@tanstack/react-query";
 
-import useAxiosPublic from "../../../hooks/useAxiosPublic";
+// import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import axios from "axios";
+// import { useEffect, useState } from "react";
 // import axios from "axios";
 
 // import Skeleton from "react-loading-skeleton";
 
 const RecentBlogs = () => {
   // const axiosSecure = useAxios();
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
 
   // const [recentBlogs, setRecentBlogs] = useState([]);
   const { loading } = useAuth();
   // console.log(loading);
-
-  // useEffect(() => {
-  //   axios.get("https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/recent-post").then((res) => {
-  //     setRecentBlogs(res.data);
-  //   });
-  // }, []);
 
   // useEffect(() => {
   //   axiosSecure.get("/blogs/recent-post").then((res) => {
@@ -36,7 +32,9 @@ const RecentBlogs = () => {
     queryKey: ["recentBlogs"],
     queryFn: async () => {
       try {
-        const response = await axiosPublic.get("/blogs/recent-post");
+        const response = await axios.get(
+          "http://localhost:5000/blogs/recent-post"
+        );
         console.log(response.data);
         return response.data;
       } catch (error) {
@@ -47,7 +45,7 @@ const RecentBlogs = () => {
   });
 
   // useEffect(() => {
-  //   fetch("https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs")
+  //   fetch("http://localhost:5000/blogs")
   //     .then((res) => res.json())
   //     .then((data) => setRecentBlogs(data));
   // }, []);

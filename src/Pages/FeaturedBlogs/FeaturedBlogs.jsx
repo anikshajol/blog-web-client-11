@@ -9,9 +9,9 @@ const FeaturedBlogs = () => {
     queryKey: ["featured"],
     queryFn: async () => {
       try {
-        const response = await axios.get(
-          "https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs"
-        );
+        const response = await axios.get("http://localhost:5000/blogs", {
+          withCredentials: true,
+        });
 
         console.log(response.data);
         const sortedBlogs = response.data.sort(

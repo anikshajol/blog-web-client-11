@@ -59,25 +59,17 @@ const AuthProvider = ({ children }) => {
 
       if (currentUser) {
         axios
-          .post(
-            "https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/jwt",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
+          .post("http://localhost:5000/jwt", loggedUser, {
+            withCredentials: true,
+          })
           .then((res) => {
             console.log("token response", res.data);
           });
       } else {
         axios
-          .post(
-            "https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/logout",
-            loggedUser,
-            {
-              withCredentials: true,
-            }
-          )
+          .post("http://localhost:5000/logout", loggedUser, {
+            withCredentials: true,
+          })
           .then((res) => {
             console.log(res.data);
           });

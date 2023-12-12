@@ -52,7 +52,11 @@ const routes = createBrowserRouter([
       },
       {
         path: "/wishlist",
-        element: <Wishlist></Wishlist>,
+        element: (
+          <PrivateRoute>
+            <Wishlist></Wishlist>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/blog-details/:id",
@@ -62,9 +66,7 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/${params.id}`
-          ),
+          fetch(`http://localhost:5000/blogs/${params.id}`),
       },
       {
         path: "/update/:id",
@@ -74,9 +76,7 @@ const routes = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(
-            `https://blog-server-side-6sjw9q7nf-anikshajol.vercel.app/blogs/${params.id}`
-          ),
+          fetch(`http://localhost:5000/blogs/${params.id}`),
       },
       {
         path: "/login",
